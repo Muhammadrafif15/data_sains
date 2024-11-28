@@ -114,21 +114,16 @@ def create_by_city(customer_geo):
 
 #load data
 
-df_orders = pd.read_csv("C:\Belajar\DICODING SUBMISSION\Belajar Analisis Data dengan Python\submission\dashboard\main_df.csv")
-df_orders_ori = pd.read_csv("C:\Belajar\DICODING SUBMISSION\Belajar Analisis Data dengan Python\submission\dashboard\orders_df_ori.csv")
-df_cus = pd.read_csv("C:\Belajar\DICODING SUBMISSION\Belajar Analisis Data dengan Python\submission\dashboard\customer&geo.csv")
-df_order_item = pd.read_csv("C:\Belajar\DICODING SUBMISSION\Belajar Analisis Data dengan Python\submission\dashboard\order_item.csv")
+df_orders = pd.read_csv("main_df.csv")
+df_orders_ori = pd.read_csv("orders_df_ori.csv")
+df_order_item = pd.read_csv("order_item.csv")
 
-
-
-customer_geo = create_customer_geo(df_cus)
 delivery_status = create_delivery_status(df_orders_ori)
 delivery_time = create_delivery_time(df_orders_ori)
 deliver_delay = create_delivery_delay(df_orders_ori)
 daily_stat = create_daily_stat(df_orders, df_order_item)
 rfm_analisis = create_rfm_analisis(df_orders, df_order_item)
 rfm_segment = create_rfm_segment(rfm_analisis)
-by_city = create_by_city(df_cus)
 
 st.title("E-Commerce Public Dataset Customer and Delivery")
 st.subheader('Daily Orders')
@@ -216,22 +211,22 @@ with tap4:
 
 #Customer demograpict by city
 
-with st.container():
+# with st.container():
 
-    st.subheader("Customer Demograficts")
-    fig, ax = plt.subplots(figsize=(20, 15))
+#     st.subheader("Customer Demograficts")
+#     fig, ax = plt.subplots(figsize=(20, 15))
 
-    sns.barplot(
-        x='customer_count',
-        y='customer_city',
-        data=by_city.sort_values(by='customer_count',ascending=False).head(10)
-    )
-    ax.set_title("Number of Customer City", loc='center', fontsize=30)
-    ax.set_ylabel("City")
-    ax.set_xlabel(None)
-    ax.tick_params(axis='y', labelsize=30)
-    ax.tick_params(axis='x', labelsize=30)
-    st.pyplot(fig)
+#     sns.barplot(
+#         x='customer_count',
+#         y='customer_city',
+#         data=by_city.sort_values(by='customer_count',ascending=False).head(10)
+#     )
+#     ax.set_title("Number of Customer City", loc='center', fontsize=30)
+#     ax.set_ylabel("City")
+#     ax.set_xlabel(None)
+#     ax.tick_params(axis='y', labelsize=30)
+#     ax.tick_params(axis='x', labelsize=30)
+#     st.pyplot(fig)
 
 # delivery status order
 colors = sns.color_palette("deep")

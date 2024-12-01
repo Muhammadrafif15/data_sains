@@ -1,0 +1,1 @@
+print(categoriy_analisis.columns)

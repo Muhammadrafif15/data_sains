@@ -107,6 +107,7 @@ def create_rfm_segment(rfm_df):
 df_orders = pd.read_csv("main_df.csv")
 df_orders_ori = pd.read_csv("orders_df_ori.csv")
 df_order_item = pd.read_csv("order_item.csv")
+df_city = pd.read_csv("city_df.csv")
 
 delivery_status = create_delivery_status(df_orders_ori)
 delivery_time = create_delivery_time(df_orders_ori)
@@ -116,6 +117,19 @@ rfm_analisis = create_rfm_analisis(df_orders, df_order_item)
 rfm_segment = create_rfm_segment(rfm_analisis)
 
 st.title("E-Commerce Public Dataset Customer and Delivery")
+st.subheader("Customer by City")
+with st.container():
+    fig, ax = plt.subplots(figsize=(4, 5))
+    sns.barplot(
+        x='customer_count',
+        y='customer_city',
+        data=df_city.sort_values(by='customer_count',ascending=False).head(25)
+    )
+    ax.set_title("Number of Customer City", loc='center')
+    ax.set_ylabel(None)
+    ax.set_xlabel(None)    
+    st.pyplot(fig)
+
 st.subheader('Daily Orders')
 
 col1, col2 = st.columns(2)
